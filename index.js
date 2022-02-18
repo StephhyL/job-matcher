@@ -87,26 +87,39 @@ const users = [
 
 // inital thought is: loop over the users and for every user ---> loop through jobs to compare the user tags with the job tags. ---> if there are 2+ tags, get that job id and print it out (console.log it out?)
 
-const userArray = [1];
+const readline = require("readline");
 
-// grab the users where the userid is in the list of userArray
-const includedUsers = users.filter((user) => userArray.includes(user.id));
-/*includedUsers = [
-  { id: 1, name: 'Foo', tags: [ 'a', 'b' ] },
-  { id: 3, name: 'Hello', tags: [ 'd', 'e', 'f' ] }
-]
-*/
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-for (const user of includedUsers) {
-  // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
-  for (const job of jobs) {
-    const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
-    // console.log("job--->", job);
-    // console.log("diffArray--->", diffArray);
-    if (diffArray.length >= 2) {
-      console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
+rl.question("Please enter user id(s): ", (userString) => {
+  console.log("Here are the matches:");
+
+  const userArray = userString.split(" ").map((num) => Number(num));
+  // console.log(userArray);
+
+  // grab the users where the userid is in the list of userArray
+  const includedUsers = users.filter((user) => userArray.includes(user.id));
+  /*includedUsers = [
+    { id: 1, name: 'Foo', tags: [ 'a', 'b' ] },
+    { id: 3, name: 'Hello', tags: [ 'd', 'e', 'f' ] }
+  ]
+  */
+
+  for (const user of includedUsers) {
+    // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
+    for (const job of jobs) {
+      const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
+      // console.log("job--->", job);
+      // console.log("diffArray--->", diffArray);
+      if (diffArray.length >= 2) {
+        console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
+      }
     }
   }
-}
+  rl.close();
 
-//User 2 matched to {'id': 6, 'title': 'Chief Technical Officer', 'company': 'Bar industries', 'tags': ['c', 'e', 'g']}
+  //User 2 matched to {'id': 6, 'title': 'Chief Technical Officer', 'company': 'Bar industries', 'tags': ['c', 'e', 'g']}
+});
