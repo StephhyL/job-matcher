@@ -1,92 +1,3 @@
-/* Write a small command line utility that will parse 2 files (users.json and jobs.json, see attached), and for every user, find all jobs that match at least 2 tags.  The utility should then print out the matches as follows:
-
-User 1 matched to {'id': 1, 'title': 'Foo developer', 'company': 'Bar industries', 'tags': ['a', 'b', 'c']}
-User 1 matched to {'id': 4, 'title': 'Front-end developer', 'company': 'Bar industries', 'tags': ['a', 'b', 'f']}
-User 2 matched to {'id': 6, 'title': 'Chief Technical Officer', 'company': 'Bar industries', 'tags': ['c', 'e', 'g']} */
-
-// eventally "fetch" the data - let's do some Promises or something or require request
-// type into the command line: node index.js jobs.json users.json ---> get the above list
-// let's start by taking a look at what we have before fetching the data:
-
-// const jobs = [
-//   {
-//     id: 1,
-//     title: "Foo developer",
-//     company: "Bar industries",
-//     tags: ["a", "b", "c"],
-//   },
-//   {
-//     id: 2,
-//     title: "Full-stack developer",
-//     company: "Bar industries",
-//     tags: ["b", "c", "e"],
-//   },
-//   {
-//     id: 3,
-//     title: "Data scientist",
-//     company: "Bar industries",
-//     tags: ["d", "e", "g"],
-//   },
-//   {
-//     id: 4,
-//     title: "Front-end developer",
-//     company: "Bar industries",
-//     tags: ["a", "b", "f"],
-//   },
-//   {
-//     id: 5,
-//     title: "Devops Engineer",
-//     company: "Bar industries",
-//     tags: ["b", "e"],
-//   },
-//   {
-//     id: 6,
-//     title: "Chief Technical Officer",
-//     company: "Bar industries",
-//     tags: ["c", "e", "g"],
-//   },
-//   {
-//     id: 7,
-//     title: "Code Monkey",
-//     company: "Bar industries",
-//     tags: ["d", "g"],
-//   },
-//   {
-//     id: 8,
-//     title: "Intern",
-//     company: "Bar industries",
-//     tags: ["c", "d", "f"],
-//   },
-// ];
-
-// const users = [
-//   {
-//     id: 1,
-//     name: "Foo",
-//     tags: ["a", "b"],
-//   },
-//   {
-//     id: 2,
-//     name: "Bar",
-//     tags: ["c", "g"],
-//   },
-//   {
-//     id: 3,
-//     name: "Hello",
-//     tags: ["d", "e", "f"],
-//   },
-//   {
-//     id: 4,
-//     name: "World",
-//     tags: ["a", "c", "d"],
-//   },
-// ];
-
-// jobs is an array of objects
-// users is an array of objects
-
-// inital thought is: loop over the users and for every user ---> loop through jobs to compare the user tags with the job tags. ---> if there are 2+ tags, get that job id and print it out (console.log it out?)
-
 const readline = require("readline");
 const fs = require("fs");
 
@@ -96,10 +7,16 @@ const rl = readline.createInterface({
 });
 
 rl.question("Please enter user id(s): ", (userString) => {
-  console.log("Here are the matches:");
+  // checks if a user id was entered
+  if (userString.length === 0) {
+    console.log("Please enter at least one user id");
+    return rl.close();
+  }
+
+  // if there are user entries
+  console.log("Here are the matches for the users:");
 
   const userArray = userString.split(" ").map((num) => Number(num));
-  // console.log(userArray); [1, 3]
 
   const readFile = (name) => {
     return new Promise((resolve, reject) => {
