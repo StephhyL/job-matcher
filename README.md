@@ -4,7 +4,7 @@ Job Matcher is a command-line utility that first prompts for user id(s). It will
 
 ## Final Product
 
-![demo]()
+![demo](https://github.com/StephhyL/lumiq-take-home-exercise/blob/main/docs/jobMatcherDemo.gif)
 
 ## Getting Started
 
