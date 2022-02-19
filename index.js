@@ -13,9 +13,6 @@ rl.question("Please enter user id(s): ", (userString) => {
     return rl.close();
   }
 
-  // if there are user entries
-  console.log("Here are the matches for the users:");
-
   const userArray = userString.split(" ").map((num) => Number(num));
 
   const readFile = (name) => {
@@ -33,8 +30,6 @@ rl.question("Please enter user id(s): ", (userString) => {
     // grab data from the files and parse them
     const users = JSON.parse(data[0]);
     const jobs = JSON.parse(data[1]);
-    // console.log("users-->", users);
-    // console.log("jobs--->", jobs);
 
     // grab the users where the userid is in the list of userArray
     const includedUsers = users.filter((user) => userArray.includes(user.id));
@@ -43,6 +38,14 @@ rl.question("Please enter user id(s): ", (userString) => {
       { id: 3, name: 'Hello', tags: [ 'd', 'e', 'f' ] }
     ]
     */
+
+    if (includedUsers.length === 0) {
+      console.log("Sorry, all user ids entered not associated with any user");
+      return rl.close();
+    }
+
+    // if there are user entries
+    console.log("Here are the matches:");
 
     for (const user of includedUsers) {
       // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
