@@ -1,5 +1,6 @@
 const readline = require("readline");
 const fs = require("fs");
+const jobMatch = require("./helperFunction");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -12,9 +13,6 @@ rl.question("Please enter user id(s): ", (userString) => {
     console.log("Please enter at least one user id");
     return rl.close();
   }
-
-  // if there are user entries
-  console.log("Here are the matches for the users:");
 
   const userArray = userString.split(" ").map((num) => Number(num));
 
@@ -33,8 +31,6 @@ rl.question("Please enter user id(s): ", (userString) => {
     // grab data from the files and parse them
     const users = JSON.parse(data[0]);
     const jobs = JSON.parse(data[1]);
-    // console.log("users-->", users);
-    // console.log("jobs--->", jobs);
 
     // grab the users where the userid is in the list of userArray
     const includedUsers = users.filter((user) => userArray.includes(user.id));
@@ -44,17 +40,15 @@ rl.question("Please enter user id(s): ", (userString) => {
     ]
     */
 
-    for (const user of includedUsers) {
-      // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
-      for (const job of jobs) {
-        const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
-        // console.log("job--->", job);
-        // console.log("diffArray--->", diffArray);
-        if (diffArray.length >= 2) {
-          console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
-        }
-      }
+    if (includedUsers.length === 0) {
+      console.log("Sorry, all user ids entered not associated with any user");
+      return rl.close();
     }
+
+    // if there are user entries
+    console.log("Here are the matches:");
+
+    jobMatch(includedUsers, jobs);
   });
 
   rl.close();
