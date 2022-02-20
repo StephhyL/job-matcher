@@ -44,15 +44,10 @@ const jobMatch = (usersArray, jobsArray) => {
 
     let resultMatch = [];
 
-    // console.log("numOfUserTagsLeft--->", numOfUserTagsLeft);
-    // console.log("currentUserTagArray--->", currentUserTagArray);
-    while (
-      numOfMatches + numOfUserTagsLeft >= 2 &&
-      numOfUserTagsLeft <= currentUserTagArray.length
-    ) {
-      console.log("hello");
-      console.log("currentTag--->", currentTag);
-      console.log("jobsArray[k]--->", jobsArray[k]);
+    while (numOfMatches + numOfUserTagsLeft >= 2 && numOfUserTagsLeft > 0) {
+      // console.log("hello");
+      // console.log("currentTag--->", currentTag);
+      // console.log("jobsArray[k]--->", jobsArray[k]);
       if (searchJobs(currentTag, jobsArray[k])) {
         // console.log("hit line 43");
         resultMatch.push(
