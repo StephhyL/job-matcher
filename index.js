@@ -1,3 +1,4 @@
+const {search} from "./search"
 const readline = require("readline");
 const fs = require("fs");
 
@@ -47,17 +48,28 @@ rl.question("Please enter user id(s): ", (userString) => {
     // if there are user entries
     console.log("Here are the matches:");
 
-    for (const user of includedUsers) {
-      // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
-      for (const job of jobs) {
-        const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
-        // console.log("job--->", job);
-        // console.log("diffArray--->", diffArray);
-        if (diffArray.length >= 2) {
-          console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
-        }
-      }
+    // sort the job tags <-- quick start instead????
+    for (const job of jobs) {
+      job.tags.sort();
     }
+
+    // console.log("jobss---->", jobs);
+
+    for (const user of includedUsers) {
+
+    }
+
+    // for (const user of includedUsers) {
+    //   // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
+    //   for (const job of jobs) {
+    //     const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
+    //     // console.log("job--->", job);
+    //     // console.log("diffArray--->", diffArray);
+    //     if (diffArray.length >= 2) {
+    //       console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
+    //     }
+    //   }
+    // }
   });
 
   rl.close();
