@@ -1,6 +1,6 @@
 # Job Matcher
 
-Job Matcher is a command-line utility that first prompts for user id(s). It will then compare the users tags with the job tags and display the jobs that have at least 2 tags that the respective user has!
+Job Matcher is a command-line utility that first prompts for user id(s). It will then compare the users tags with the job tags and display the jobs that have at least 2 tags that the respective user has! Behind the scenes, Job Matcher is parsing the data of two JSON files - one for the user and one for the jobs.
 
 ## Final Product
 
