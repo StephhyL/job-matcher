@@ -2,7 +2,7 @@
 
 Job Matcher is a command-line utility that matches user and jobs based on common tags - there must be at least 2 common tags.
 
-Users are greated with a prompt to enter user id(s). They can enter one, or many. If many, they must separate the ids with a space. The user can also enter 'all' and the user/job matches will be displayed.
+Users are greeted with a prompt to enter user id(s). They can enter one, or many. If many, they must separate the ids with a space. The user can also enter 'all' and the user/job matches will be displayed.
 
 Behind the scenes, Job Matcher is parsing the data of two JSON files - one for the user and one for the jobs.
 
