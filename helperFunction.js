@@ -1,15 +1,30 @@
+const fs = require("fs");
+
+// gets the information from the specified file being passed into the function. If no problems reading the data, will resolve. Otherwise, reject
+const readFile = (name) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(name, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  });
+};
+
 const jobMatch = (usersArray, jobsArray) => {
+  // for every user, loop through all the jobs
   for (const user of usersArray) {
-    // user { id: 1, name: 'Foo', tags: [ 'a', 'b' ] } // user 1 match with 1, 4
     for (const job of jobsArray) {
-      const diffArray = job.tags.filter((tag) => user.tags.includes(tag));
-      // console.log("job--->", job);
-      // console.log("diffArray--->", diffArray);
-      if (diffArray.length >= 2) {
+      // filters the job tags array for job tags that are included in the user tags
+      const matchArray = job.tags.filter((tag) => user.tags.includes(tag));
+
+      // checks if there is at least tags in common between user and job. If so, print the match in the console.
+      if (matchArray.length >= 2) {
         console.log(`User ${user.id} matched to ${JSON.stringify(job)}`);
       }
     }
   }
 };
 
-module.exports = jobMatch;
+module.exports = { readFile, jobMatch };
